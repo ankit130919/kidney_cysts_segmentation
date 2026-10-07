@@ -1,0 +1,21 @@
+[Unit]
+Description=Kidney cyst segmentation API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=@APP_DIR@
+EnvironmentFile=@APP_DIR@/api_secrets.env
+ExecStart=@VENV@/bin/python @APP_DIR@/app.py
+Restart=on-failure
+RestartSec=10
+# One study peaks around 14 GB of RAM on a 536-slice CT and scales with slice count.
+# The cap exists so this service is the one that dies if it runs away, rather than
+# whatever else shares the box.
+MemoryMax=48G
+StandardOutput=append:@APP_DIR@/logs/api.log
+StandardError=append:@APP_DIR@/logs/api.log
+
+[Install]
+WantedBy=multi-user.target

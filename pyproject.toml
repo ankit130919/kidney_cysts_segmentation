@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cysts"
+version = "0.1.0"
+description = "Kidney cyst detection, segmentation and measurement on abdominal CT"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.26", "scipy>=1.11", "pandas>=2.1", "nibabel>=5.2",
+    "pydicom>=2.4", "SimpleITK>=2.3", "scikit-image>=0.22",
+    "matplotlib>=3.8", "requests>=2.31", "openpyxl>=3.1", "Pillow>=10.0",
+]
+
+[project.optional-dependencies]
+# nnU-Net and TotalSegmentator pin torch, which pins CUDA. Kept separate so the
+# measurement and evaluation code installs and tests without a 3 GB GPU stack.
+seg = ["nnunetv2>=2.5", "TotalSegmentator>=2.17"]
+dev = ["pytest>=8.0", "ruff>=0.4"]
+
+[project.scripts]
+cysts-study   = "cysts.pipeline.infer_study:main"
+cysts-run     = "cysts.pipeline.run_study:main"
+cysts-load    = "cysts.evaluate.load_test:main"
+cysts-prepare = "cysts.pipeline.prepare_study:main"
+cysts-score   = "cysts.evaluate.score_cohort:main"
+cysts-metrics = "cysts.evaluate.metrics:main"
+cysts-overlay = "cysts.kidney.render_overlays:main"
+
+[tool.setuptools.packages.find]
+include = ["cysts*"]
+
+[tool.ruff]
+line-length = 95
+target-version = "py310"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

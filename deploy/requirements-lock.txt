@@ -1,0 +1,16 @@
+# Versions this was built and measured against. torch is a CUDA build -- install with
+#   pip install -r deploy/requirements-lock.txt --extra-index-url https://download.pytorch.org/whl/cu126
+numpy==1.26.4
+scipy==1.14.1
+pandas==2.2.3
+nibabel==5.3.2
+pydicom==2.4.4
+SimpleITK==2.4.0
+scikit-image==0.24.0
+matplotlib==3.9.2
+Pillow==10.4.0
+requests==2.32.3
+openpyxl==3.1.5
+torch==2.12.0+cu126
+nnunetv2==2.5.1
+TotalSegmentator==2.17.0

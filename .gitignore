@@ -1,0 +1,32 @@
+# model weights -- ~250 MB per checkpoint, ship out of band
+model/
+*.pth
+# study data and intermediates
+data/
+csv/
+overlays/
+run_*/
+*.nii.gz
+*.nii
+*.dcm
+# secrets
+api_secrets.env
+*.env
+!*.env.example
+# python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Run artifacts. These carry real Study Instance UIDs, which are patient-linked
+# identifiers -- they do not belong in a code repository, public or private.
+*.log
+load_test*.csv
+cohort_scores.csv
+*_results.csv
+bench_work/
+load_test_fast.csv
